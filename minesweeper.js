@@ -69,7 +69,6 @@ export function revealTile(board, { x, y }) {
   if (tile.mine) {
     return replaceTile(board, { x, y }, { ...tile, status: TILE_STATUSES.MINE });
   }
-
   tile.status = TILE_STATUSES.NUMBER;
   // this is neccessarry because of the fact that in order for number of surrounding mines do display we need to now status of nearby tiles
   const adjacentTiles = nearbyTiles(board, tile);
@@ -121,5 +120,5 @@ function nearbyTiles(board, { x, y }) {
         return board[x + xOffset]?.[y + yOffset];
       });
     })
-    .filter((tile) => tile !== null);
+    .filter((tile) => tile != null);
 }

@@ -1,15 +1,18 @@
 // Displaying UI code :
 
 import { TILE_STATUSES, createBoard, markTile, revealTile, checkLose, checkWin, positionMatch, markedTilesCount } from "./minesweeper.js";
-
+let testBoard;
+if (process.env.NODE_ENV !== "production" && window.testBoard) {
+  testBoard = window.testBoard;
+}
 // Inside our CSS the size of the cell / single tile is determined based on --size variable so we need to define it inside here
 
-const BOARD_SIZE = 10;
-const NUMBER_OF_MINES = 10;
+const BOARD_SIZE = testBoard?.length ?? 10;
+const NUMBER_OF_MINES = testBoard?.flat().filter((t) => t.mine).length ?? 10;
 
 // Create initial board
 
-let board = createBoard(BOARD_SIZE, getMinePositions(BOARD_SIZE, NUMBER_OF_MINES));
+let board = testBoard ?? createBoard(BOARD_SIZE, getMinePositions(BOARD_SIZE, NUMBER_OF_MINES));
 
 // Select the board element
 const boardElement = document.querySelector(".board");
